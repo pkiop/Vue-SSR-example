@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>raw_view</title>
+</head>
+<body>
+  <div id='app'>
+    <ul>
+      <li v-for='product in products'>
+        {{ product }} good
+      </li>
+    </ul>
+  </div>  
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        products: [
+          'Boots',
+          'Socks',
+          'Jacket'
+        ]
+      } 
+    })
+  </script>
+</body>
+</html>
