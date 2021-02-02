@@ -9,9 +9,18 @@
   <div id='app'>
     <ul>
       <li v-for='product in products'>
-        {{ product }} 
+        <input type="text" v-model.string="product.lastName" />
+        {{ product.lastName }} 
+        <span v-if='product === "Brand"'>
+          <-- brand
+        </span>
+        <button @click="product.lastName += 'happy'">
+          button
+        </button> 
       </li>
     </ul>
+ 
+    <div> {{ allParticipantFullName }} </div>
   </div>  
   <script src="https://unpkg.com/vue"></script>
   <script>
@@ -20,6 +29,14 @@
       data: {
         products: []
       }, 
+      computed: {
+        allParticipantFullName() {
+          return this.products.reduce((names, el) => {
+            console.log(el);
+            return names + '/' + el.firstName + ' ' + el.lastName;
+          },'');
+        }
+      },
       created() {
         fetch('https://dummyapi.io/data/api/user', {
           headers: {
@@ -29,7 +46,7 @@
           return res.json();
         }).then(json => {
           const resData = json.data.map(el => {
-            return el.lastName;
+            return { lastName: el.lastName, firstName: el.firstName} ;
           })
           console.log(json);
           this.products = resData;
