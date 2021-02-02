@@ -9,7 +9,7 @@
   <div id='app'>
     <ul>
       <li v-for='product in products'>
-        {{ product }} good
+        {{ product }} 
       </li>
     </ul>
   </div>  
@@ -18,13 +18,26 @@
     const app = new Vue({
       el: '#app',
       data: {
-        products: [
-          'Boots',
-          'Socks',
-          'Jacket'
-        ]
-      } 
+        products: []
+      }, 
+      created() {
+        fetch('https://dummyapi.io/data/api/user', {
+          headers: {
+            'app-id': ''
+          }
+        }).then(res => {
+          return res.json();
+        }).then(json => {
+          const resData = json.data.map(el => {
+            return el.lastName;
+          })
+          console.log(json);
+          this.products = resData;
+        })
+      }
     })
+
+
   </script>
 </body>
 </html>
